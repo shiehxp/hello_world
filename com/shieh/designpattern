@@ -1,0 +1,89 @@
+/*
+	 * Iterator Design
+	 */
+	interface Iterator{
+		public Object first();
+		public Object next();
+		public Object currentItem();
+		public boolean isAlive();
+	}
+	class ConcreteIterator implements Iterator{
+		int currentIndex;
+		Vector<String> vector;
+		ConcreteIterator(Vector<String> vector){
+			this.vector=vector;
+		}
+		public Object first(){
+			currentIndex=0;
+			return vector.get(currentIndex);
+		}
+		public Object next(){
+			currentIndex++;
+			return vector.get(currentIndex);
+		}
+		public Object currentItem(){
+			return vector.get(currentIndex);
+		}
+		public boolean isAlive(){
+			if(currentIndex<vector.size()-1){
+				return true;
+		}
+		return false;
+	}	
+}
+	interface Aggregat{
+		public Iterator createIterator();
+	}
+	class ConcreteAggregat implements Aggregat{
+		Vector<String> vector=new Vector<String>();
+		ConcreteAggregat(){
+			vector.add("hello");
+			vector.add("world");
+		}
+	public Iterator createIterator(){
+		return new ConcreteIterator(vector);
+	}
+}
+	
+	/*
+	 * Observer Design
+	 */
+	interface Observer{
+		public void update(float temperatrue);
+	}
+	class ConcreteObserver implements Observer{
+		float temperatrue;
+		Subject subject;
+		public void update(float temperatrue) {
+			this.temperatrue=temperatrue;
+			System.out.println(temperatrue);
+		}
+		ConcreteObserver(Subject subject){
+			this.subject=subject;
+			subject.addObserver(this);
+		}
+	}
+	interface Subject{
+		public void addObserver(Observer o);
+		public void removeObserver(Observer o);
+		public void notifyObserver(float temperatrue);
+	}
+	class ConcreteSubject implements Subject{
+		float temperatrue;
+		Observer o;
+		ArrayList<Observer> list;
+		ConcreteSubject(){
+			list=new ArrayList<Observer>();
+		}
+		public void addObserver(Observer o){
+			list.add(o);
+		}
+		public void removeObserver(Observer o){
+			list.remove(o);
+		}
+		public void notifyObserver(float temperatrue){
+			for(Observer o:list){
+				o.update(temperatrue);
+			}
+		}
+	}
