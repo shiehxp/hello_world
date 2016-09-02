@@ -1,0 +1,32 @@
+package com.shieh.collection;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/*
+ * @Description: list 去重
+ * @author shieh
+ * @since 2016/9/1
+ */
+public class ListOut {
+	public static void main(String args[]){
+		List<String> list=new ArrayList<String>();
+		list.add("haha");
+		list.add("heihei");
+		list.add("hehe");
+		list.add("hehe");
+		List<String> templist=new ArrayList<String>();
+		for(String s:list){
+			if(!templist.contains(s)){
+				templist.add(s);
+			}
+		}
+		Set<String> set=new HashSet<String>(list);
+		List<String> list1=new ArrayList<String>(new HashSet<String>(list));
+		System.out.println(templist);
+		System.out.println(set);
+		System.out.println(list1);	
+	}
+}
